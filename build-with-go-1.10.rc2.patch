@@ -1,0 +1,25 @@
+From 9eecd720755e0bdfec4430977d05670a514a0978 Mon Sep 17 00:00:00 2001
+From: Jan Chaloupka <jchaloup@redhat.com>
+Date: Sun, 18 Feb 2018 12:43:41 +0100
+Subject: [PATCH] Build with go-1.10.rc2
+
+---
+ pkg/util/util.go | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/pkg/util/util.go b/pkg/util/util.go
+index e598882..caaae0a 100644
+--- a/pkg/util/util.go
++++ b/pkg/util/util.go
+@@ -376,7 +376,7 @@ func BuildPackageTree(packagePath string, includeMain bool, tests bool, ignore *
+ 
+ func ListPackage(path string) (*load.PackagePublic, error) {
+ 	// TODO(jchaloup): more things need to be init most likely
+-	work.BuildModeInit()
++	work.BuildInit()
+ 
+ 	d := load.PackagesAndErrors([]string{path})
+ 	if d == nil {
+-- 
+2.7.5
+
