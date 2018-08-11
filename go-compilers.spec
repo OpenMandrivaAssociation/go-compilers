@@ -16,12 +16,13 @@ Source0:        https://github.com/gofed/symbols-extractor/archive/%{commit}/sym
 Source1:        https://github.com/gofed/go-macros/archive/%{m_commit}/go-macros-%{m_shortcommit}.tar.gz
 Patch0:         build-with-go-1.10.rc2.patch
 
-#ExclusiveArch:  %{go_arches}
+ExclusiveArch:  %{golang_arches}
 
 # for install, cut and rm commands
 BuildRequires:  coreutils
 # for go specific macros
 BuildRequires:  go-srpm-macros
+BuildRequires:  go
 
 %description
 The package provides correct golang language compiler
@@ -32,7 +33,6 @@ base on an architectures.
 Summary:       compiler for golang
 
 BuildRequires: golang
-
 Requires:      golang
 
 Provides:      compiler(go-compiler) = 2
