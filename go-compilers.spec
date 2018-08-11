@@ -16,7 +16,7 @@ Source0:        https://github.com/gofed/symbols-extractor/archive/%{commit}/sym
 Source1:        https://github.com/gofed/go-macros/archive/%{m_commit}/go-macros-%{m_shortcommit}.tar.gz
 Patch0:         build-with-go-1.10.rc2.patch
 
-ExclusiveArch:  %{golang_arches}
+#ExclusiveArch:  %{golang_arches}
 
 # for install, cut and rm commands
 BuildRequires:  coreutils
@@ -28,7 +28,7 @@ BuildRequires:  go
 The package provides correct golang language compiler
 base on an architectures.
 
-%ifarch %{golang_arches}
+#%ifarch %{golang_arches}
 %package golang-compiler
 Summary:       compiler for golang
 
@@ -40,7 +40,7 @@ Provides:      compiler(golang)
 
 %description golang-compiler
 Compiler for golang.
-%endif
+#%endif
 
 %ifarch %{gccgo_arches}
 %package gcc-go-compiler
