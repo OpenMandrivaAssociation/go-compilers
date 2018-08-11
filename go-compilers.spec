@@ -16,7 +16,7 @@ Source0:        https://github.com/gofed/symbols-extractor/archive/%{commit}/sym
 Source1:        https://github.com/gofed/go-macros/archive/%{m_commit}/go-macros-%{m_shortcommit}.tar.gz
 Patch0:         build-with-go-1.10.rc2.patch
 
-ExclusiveArch:  %{go_arches}
+#ExclusiveArch:  %{go_arches}
 
 # for install, cut and rm commands
 BuildRequires:  coreutils
@@ -82,6 +82,7 @@ install -m 755 -D rpm/gosymlink.deps %{buildroot}%{_rpmconfigdir}/gosymlink.deps
 # macros
 install -m 644 -D rpm/macros.d/macros.go-compilers-golang %{buildroot}%{_rpmconfigdir}/macros.d/macros.go-compilers-golang
 install -m 644 -D rpm/macros.d/macros.go-rpm %{buildroot}%{_rpmconfigdir}/macros.d/macros.go-rpm
+install -m 644 -D rpm/macros.d/macros.go-srpm %{buildroot}%{_rpmconfigdir}/macros.d/macros.go-srpm
 # attrs
 install -m 644 -D rpm/fileattrs/go.attr %{buildroot}%{_rpmconfigdir}/fileattrs/go.attr
 install -m 644 -D rpm/fileattrs/gobundled.attr %{buildroot}%{_rpmconfigdir}/fileattrs/gobundled.attr
