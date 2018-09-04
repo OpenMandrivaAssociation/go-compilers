@@ -1,6 +1,6 @@
 %global debug_package   %{nil}
 
-%global commit          aecba475bf76f5269c11367da0a190419cd9a133
+%global commit          9f4330a0f4437ca61ba92f9f30e34424c6742ad6
 %global shortcommit     %(c=%{commit}; echo ${c:0:7})
 
 %global m_commit        4d469a3d37c21353fbd6bb306ce707dc4151fd1e
@@ -8,31 +8,30 @@
 
 Name:           go-compilers
 Version:        1
-Release:        30%{?dist}
+Release:        32%{?dist}
 Summary:        Go language compilers for various architectures
 Group:          Development/Tools
 License:        GPLv3+
 Source0:        https://github.com/gofed/symbols-extractor/archive/%{commit}/symbols-extractor-%{shortcommit}.tar.gz
 Source1:        https://github.com/gofed/go-macros/archive/%{m_commit}/go-macros-%{m_shortcommit}.tar.gz
-Patch0:         build-with-go-1.10.rc2.patch
 
-#ExclusiveArch:  %{golang_arches}
+ExclusiveArch:  %{go_arches}
 
 # for install, cut and rm commands
 BuildRequires:  coreutils
 # for go specific macros
 BuildRequires:  go-srpm-macros
-BuildRequires:  go
 
 %description
 The package provides correct golang language compiler
 base on an architectures.
 
-#%ifarch %{golang_arches}
+%ifarch %{golang_arches}
 %package golang-compiler
 Summary:       compiler for golang
 
 BuildRequires: golang
+
 Requires:      golang
 
 Provides:      compiler(go-compiler) = 2
@@ -40,7 +39,7 @@ Provides:      compiler(golang)
 
 %description golang-compiler
 Compiler for golang.
-#%endif
+%endif
 
 %ifarch %{gccgo_arches}
 %package gcc-go-compiler
@@ -58,9 +57,6 @@ Compiler for gcc-go.
 
 %prep
 %setup -q -n symbols-extractor-%{commit}
-%if 0%{?fedora} > 27
-%patch0 -p1
-%endif
 %setup -q -n go-macros-%{m_commit} -T -b 1
 
 %build
@@ -72,6 +68,8 @@ sed -i "s/.*\/cmd\/extract.*/\t\\\\/" Makefile
 sed -i "s/.*\/cmd\/checkapi.*/\t\\\\/" Makefile
 make
 popd
+
+echo $GOROOT
 
 %install
 %ifarch %{golang_arches}
