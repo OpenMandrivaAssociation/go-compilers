@@ -86,7 +86,10 @@ popd
 
 %ifarch %{gccgo_arches}
 install -m 644 -D rpm/macros.d/macros.go-compilers-gcc %{buildroot}%{_rpmconfigdir}/macros.d/macros.go-compilers-gcc
+sed -i 's!%__global_ldflags!%%{ldflags}!g' %{buildroot}%{_rpmconfigdir}/macros.d/macros.go-compilers-gcc
 %endif
+
+sed -i 's!%__global_ldflags!%%{ldflags}!g' %{buildroot}%{_rpmconfigdir}/macros.d/macros.go-compilers-golang
 
 %files golang-compiler
 %{_rpmconfigdir}/macros.d/macros.go-compilers-golang
