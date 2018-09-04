@@ -15,8 +15,6 @@ License:        GPLv3+
 Source0:        https://github.com/gofed/symbols-extractor/archive/%{commit}/symbols-extractor-%{shortcommit}.tar.gz
 Source1:        https://github.com/gofed/go-macros/archive/%{m_commit}/go-macros-%{m_shortcommit}.tar.gz
 
-ExclusiveArch:  %{go_arches}
-
 # for install, cut and rm commands
 BuildRequires:  coreutils
 # for go specific macros
