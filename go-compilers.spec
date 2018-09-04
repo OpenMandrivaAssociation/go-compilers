@@ -24,7 +24,6 @@ BuildRequires:  go-srpm-macros
 The package provides correct golang language compiler
 base on an architectures.
 
-%ifarch %{golang_arches}
 %package golang-compiler
 Summary:       compiler for golang
 
@@ -37,7 +36,6 @@ Provides:      compiler(golang)
 
 %description golang-compiler
 Compiler for golang.
-%endif
 
 %ifarch %{gccgo_arches}
 %package gcc-go-compiler
@@ -70,7 +68,6 @@ popd
 echo $GOROOT
 
 %install
-%ifarch %{golang_arches}
 # executables
 install -m 755 -D bin/go-rpm-integration %{buildroot}%{_bindir}/go-rpm-integration
 install -m 755 -D rpm/gobundled.prov %{buildroot}%{_rpmconfigdir}/gobundled.prov
@@ -86,13 +83,11 @@ install -m 644 -D rpm/fileattrs/gosymlink.attr %{buildroot}%{_rpmconfigdir}/file
 pushd ../symbols-extractor-%{commit}
 install -D -p -m 0755 golist %{buildroot}%{_bindir}/golist
 popd
-%endif
 
 %ifarch %{gccgo_arches}
 install -m 644 -D rpm/macros.d/macros.go-compilers-gcc %{buildroot}%{_rpmconfigdir}/macros.d/macros.go-compilers-gcc
 %endif
 
-%ifarch %{golang_arches}
 %files golang-compiler
 %{_rpmconfigdir}/macros.d/macros.go-compilers-golang
 %{_rpmconfigdir}/macros.d/macros.go-rpm
@@ -103,7 +98,6 @@ install -m 644 -D rpm/macros.d/macros.go-compilers-gcc %{buildroot}%{_rpmconfigd
 %{_rpmconfigdir}/fileattrs/gosymlink.attr
 %{_bindir}/golist
 %{_bindir}/go-rpm-integration
-%endif
 
 %ifarch %{gccgo_arches}
 %files gcc-go-compiler
