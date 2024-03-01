@@ -3,14 +3,14 @@
 %global commit		4d469a3d37c21353fbd6bb306ce707dc4151fd1e
 %global shortcommit	%(c=%{m_commit}; echo ${c:0:7})
 
-%bcond_without bootstrap
+%bcond_with bootstrap
 
 # actually gcc-go is not packaged
 %bcond_with gcc
 
 Summary:	Go language compilers for various architectures
 Name:		go-compilers
-Version:	2
+Version:	1
 License:	GPLv3+
 Group:		Development/Tools
 Release:	41
