@@ -3,12 +3,14 @@
 %global commit		4d469a3d37c21353fbd6bb306ce707dc4151fd1e
 %global shortcommit	%(c=%{m_commit}; echo ${c:0:7})
 
+%bcond_without bootstrap
+
 # actually gcc-go is not packaged
 %bcond_with gcc
 
 Summary:	Go language compilers for various architectures
 Name:		go-compilers
-Version:	1
+Version:	2
 License:	GPLv3+
 Group:		Development/Tools
 Release:	41
@@ -31,7 +33,9 @@ base on an architectures.
 Summary:		compiler for golang
 BuildRequires:	golang
 Requires:		golang
+%if ! %{with bootstrap}
 Requires:		golist
+%endif
 Provides:		compiler(go-compiler) = 2
 Provides:		compiler(golang)
 
@@ -39,6 +43,9 @@ Provides:		compiler(golang)
 Compiler for golang.
 
 %files golang-compiler
+%if %{with bootstrap}
+%{_bindir}/golist
+%endif
 %{_bindir}/go-rpm-integration
 %{_rpmconfigdir}/macros.d/macros.go-compilers-golang
 %{_rpmconfigdir}/macros.d/macros.go-rpm
@@ -71,12 +78,17 @@ Compiler for gcc-go.
 
 # remove pre-build binaries
 # golist is now provided by a separate package
+%if ! %{with bootstrap}
 rm -fr bin/golist
+%endif
 
 %build
 
 %install
 # executables
+%if %{with bootstrap}
+install -m 755 -D bin/golist %{buildroot}%{_bindir}/golist
+%endif
 install -m 755 -D bin/go-rpm-integration %{buildroot}%{_bindir}/go-rpm-integration
 install -m 755 -D rpm/gobundled.prov %{buildroot}%{_rpmconfigdir}/gobundled.prov
 install -m 755 -D rpm/gosymlink.deps %{buildroot}%{_rpmconfigdir}/gosymlink.deps
