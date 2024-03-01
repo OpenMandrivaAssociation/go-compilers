@@ -1,0 +1,27 @@
+--- a/bin/go-rpm-integration
++++ b/bin/go-rpm-integration
+@@ -235,7 +235,8 @@ for prov in $(\
+   GO111MODULE="off"                \
+   golist --provided                \
+ 	 --package-path ${goipath} \
+-         ${golistflags[$goipath]}         \
++	 --skip-self                   \
++         ${golistflags[$goipath]}  \
+   ); do
+   fullprovides golang "${prov}"
+ done
+--- a/rpm/gosymlink.deps
++++ b/rpm/gosymlink.deps
+@@ -142,9 +142,9 @@ processlink() {
+     case ${action} in
+       provides) find "${linktarget}" -type d -print | while read subdir ; do
+                   provides    "${link}${subdir#${linktarget}}"
+-                done
+-                find "${linktarget}" -type l -print | while read sublink ; do
+-                  processlink "${link}${sublink#${linktarget}}" "${sublink}"
++                #done
++                #find "${linktarget}" -type l -print | while read sublink ; do
++                #  processlink "${link}${sublink#${linktarget}}" "${sublink}"
+                 done ;;
+       requires) while [[      "${linktarget}" != "${prefix}${gopath}/src" && \
+                          ! -e "${linktarget}/.goipath" ]] ; do
